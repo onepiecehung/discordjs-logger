@@ -35,5 +35,6 @@ logger.all()
 Emitted whenever a channel is created.
 
 |PARAMETER|TYPE|DESCRIPTION|
+|  :---:        |     :---:      |         :---:  |
 |channel|Channel|The channel that was created|
 
