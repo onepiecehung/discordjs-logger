@@ -1,0 +1,25 @@
+{
+  "name": "discordjs-logger",
+  "version": "1.0.0",
+  "description": "//  Discord all events!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onepiecehung/discordjs-logger.git"
+  },
+  "keywords": [
+    "discordjs",
+    "discord",
+    "logger",
+    "discord-logger"
+  ],
+  "author": "Nguyen Huu Hung <onepiece.hung@outlook.com> (@ds112,@onepiecehung)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onepiecehung/discordjs-logger/issues"
+  },
+  "homepage": "https://github.com/onepiecehung/discordjs-logger#readme"
+}
