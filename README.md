@@ -29,7 +29,7 @@ logger.all()
 
 # API
 
-```css
+```
 channelCreate()
 Emitted whenever a channel is created.
 
