@@ -29,10 +29,10 @@ logger.all()
 
 # API
 
-
-// channelCreate
-
+```python
+channelCreate
 Emitted whenever a channel is created.
+```
 
 |PARAMETER|TYPE|DESCRIPTION|
 |  :---:        |     :---:      |         :---:  |
