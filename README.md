@@ -5,7 +5,7 @@
   </p>
 </div>
 
-# Discord.js logger = > consolog
+# Discord.js logger to Consolog
 
 ```css
 Discord all events!
@@ -18,6 +18,7 @@ Saved to -> https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
 
 ```npm
 npm i discordjs-logger
+yarn add discordjs-logger
 ```
 
 ```javascript
