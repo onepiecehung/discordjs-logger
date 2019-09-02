@@ -28,6 +28,8 @@ const logger = require("discordjs-logger");
 
 //just call API
 logger.all();
+
+client.login("YOUR_DISCORD_APP_TOKEN")
 ```
 
 # API
