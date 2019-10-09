@@ -1,5 +1,5 @@
 {
-  "name": "discord.js-logger",
+  "name": "discordjs-logger",
   "version": "1.9.4",
   "description": "Discord.js all events!",
   "main": "index.js",
