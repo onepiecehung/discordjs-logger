@@ -1,17 +1,17 @@
 {
-  "name": "discordjs-logger",
-  "version": "1.0.4.build.1909.02.1316.+7",
-  "description": "Discord all events!",
+  "name": "discord.js-logger",
+  "version": "1.9.4.build.1909.02.1316.+7",
+  "description": "Discord.js all events!",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "git+https://github.com/onepiecehung/discordjs-logger.git",
   "keywords": [
-    "discordjs",
+    "discord.js",
     "discord",
     "logger",
-    "discord-logger"
+    "discord.js-logger"
   ],
   "author": "Nguyen Huu Hung <onepiece.hung@outlook.com> (@ds112,@onepiecehung)",
   "license": "ISC",

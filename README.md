@@ -27,7 +27,7 @@ const client = new Discord.Client();
 const logger = require("discordjs-logger");
 
 //just call API
-logger.all();
+logger.all(client);
 
 client.login("YOUR_DISCORD_APP_TOKEN")
 ```

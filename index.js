@@ -10,7 +10,7 @@ const client = new Discord.Client();
 var inviteLink = "";
 
 module.exports = {
-    channelCreate: async () => {
+    channelCreate: async (client) => {
         // channelCreate
         /* Emitted whenever a channel is created.
         PARAMETER    TYPE        DESCRIPTION
@@ -21,7 +21,7 @@ module.exports = {
         });
     },
 
-    channelDelete: async () => {
+    channelDelete: async (client) => {
         // channelDelete
         /* Emitted whenever a channel is deleted.
         PARAMETER   TYPE      DESCRIPTION
@@ -31,7 +31,7 @@ module.exports = {
         });
     },
 
-    channelPinsUpdate: async () => {
+    channelPinsUpdate: async (client) => {
         // channelPinsUpdate
         /* Emitted whenever the pins of a channel are updated. Due to the nature of the WebSocket event, not much information can be provided easily here - you need to manually check the pins yourself.
         PARAMETER    TYPE         DESCRIPTION
@@ -42,7 +42,7 @@ module.exports = {
         });
     },
 
-    channelUpdate: async () => {
+    channelUpdate: async (client) => {
         // channelUpdate
         /* Emitted whenever a channel is updated - e.g. name change, topic change.
         PARAMETER        TYPE        DESCRIPTION
@@ -53,7 +53,7 @@ module.exports = {
         });
     },
 
-    clientUserGuildSettingsUpdate: async () => {
+    clientUserGuildSettingsUpdate: async (client) => {
         // clientUserGuildSettingsUpdate
         /* Emitted whenever the client user's settings update.
         PARAMETER                  TYPE                       DESCRIPTION
@@ -63,7 +63,7 @@ module.exports = {
         });
     },
 
-    clientUserSettingsUpdate: async () => {
+    clientUserSettingsUpdate: async (client) => {
         // clientUserSettingsUpdate
         /* Emitted when the client user's settings update.
         PARAMETER             TYPE                  DESCRIPTION
@@ -73,7 +73,7 @@ module.exports = {
         });
     },
 
-    debug: async () => {
+    debug: async (client) => {
         // debug
         /* Emitted for general debugging information.
         PARAMETER    TYPE         DESCRIPTION
@@ -83,7 +83,7 @@ module.exports = {
         });
     },
 
-    disconnect: async () => {
+    disconnect: async (client) => {
         // disconnect
         /* Emitted when the client's WebSocket disconnects and will no longer attempt to reconnect.
         PARAMETER    TYPE              DESCRIPTION
@@ -93,7 +93,7 @@ module.exports = {
         });
     },
 
-    emojiCreate: async () => {
+    emojiCreate: async (client) => {
         // emojiCreate
         /* Emitted whenever a custom emoji is created in a guild.
         PARAMETER    TYPE          DESCRIPTION
@@ -103,7 +103,7 @@ module.exports = {
         });
     },
 
-    emojiDelete: async () => {
+    emojiDelete: async (client) => {
         // emojiDelete
         /* Emitted whenever a custom guild emoji is deleted.
         PARAMETER    TYPE         DESCRIPTION
@@ -113,7 +113,7 @@ module.exports = {
         });
     },
 
-    emojiUpdate: async () => {
+    emojiUpdate: async (client) => {
         // emojiUpdate
         /* Emitted whenever a custom guild emoji is updated.
         PARAMETER    TYPE       DESCRIPTION
@@ -124,7 +124,7 @@ module.exports = {
         });
     },
 
-    error: async () => {
+    error: async (client) => {
         // error
         /* Emitted whenever the client's WebSocket encounters a connection error.
         PARAMETER    TYPE     DESCRIPTION
@@ -134,7 +134,7 @@ module.exports = {
         });
     },
 
-    guildBanAdd: async () => {
+    guildBanAdd: async (client) => {
         // guildBanAdd
         /* Emitted whenever a member is banned from a guild.
         PARAMETER    TYPE          DESCRIPTION
@@ -145,7 +145,7 @@ module.exports = {
         });
     },
 
-    guildBanRemove: async () => {
+    guildBanRemove: async (client) => {
         // guildBanRemove
         /* Emitted whenever a member is unbanned from a guild.
         PARAMETER    TYPE         DESCRIPTION
@@ -157,7 +157,7 @@ module.exports = {
 
     },
 
-    guildCreate: async () => {
+    guildCreate: async (client) => {
         // guildCreate
         /* Emitted whenever the client joins a guild.
         PARAMETER    TYPE         DESCRIPTION
@@ -167,7 +167,7 @@ module.exports = {
         });
     },
 
-    guildDelete: async () => {
+    guildDelete: async (client) => {
         // guildDelete
         /* Emitted whenever a guild is deleted/left.
         PARAMETER    TYPE         DESCRIPTION
@@ -177,7 +177,7 @@ module.exports = {
         });
     },
 
-    guildMemberAdd: async () => {
+    guildMemberAdd: async (client) => {
         // guildMemberAdd
         /* Emitted whenever a user joins a guild.
         PARAMETER     TYPE               DESCRIPTION
@@ -187,7 +187,7 @@ module.exports = {
         });
     },
 
-    guildMemberAvailable: async () => {
+    guildMemberAvailable: async (client) => {
         // guildMemberAvailable
         /* Emitted whenever a member becomes available in a large guild.
         PARAMETER     TYPE               DESCRIPTION
@@ -197,7 +197,7 @@ module.exports = {
         });
     },
 
-    guildMemberRemove: async () => {
+    guildMemberRemove: async (client) => {
         // guildMemberRemove
         /* Emitted whenever a member leaves a guild, or is kicked.
         PARAMETER     TYPE               DESCRIPTION
@@ -207,7 +207,7 @@ module.exports = {
         });
     },
 
-    guildMembersChunk: async () => {
+    guildMembersChunk: async (client) => {
         // guildMembersChunk
         /* Emitted whenever a chunk of guild members is received (all members come from the same guild).
         PARAMETER      TYPE                      DESCRIPTION
@@ -218,7 +218,7 @@ module.exports = {
         });
     },
 
-    guildMemberSpeaking: async () => {
+    guildMemberSpeaking: async (client) => {
         // guildMemberSpeaking
         /* Emitted once a guild member starts/stops speaking.
         PARAMETER     TYPE                DESCRIPTION
@@ -229,7 +229,7 @@ module.exports = {
         });
     },
 
-    guildMemberUpdate: async () => {
+    guildMemberUpdate: async (client) => {
         // guildMemberUpdate
         /* Emitted whenever a guild member changes - i.e. new role, removed role, nickname.
         PARAMETER    TYPE               DESCRIPTION
@@ -240,7 +240,7 @@ module.exports = {
         });
     },
 
-    guildUnavailable: async () => {
+    guildUnavailable: async (client) => {
         // guildUnavailable
         /* Emitted whenever a guild becomes unavailable, likely due to a server outage.
         PARAMETER    TYPE          DESCRIPTION
@@ -250,7 +250,7 @@ module.exports = {
         });
     },
 
-    guildUpdate: async () => {
+    guildUpdate: async (client) => {
         // guildUpdate
         /* Emitted whenever a guild is updated - e.g. name change.
         PARAMETER     TYPE      DESCRIPTION
@@ -261,7 +261,7 @@ module.exports = {
         });
     },
 
-    message: async () => {
+    message: async (client) => {
         // message
         /* Emitted whenever a message is created.
         PARAMETER      TYPE           DESCRIPTION
@@ -271,7 +271,7 @@ module.exports = {
         });
 
     },
-    messageDelete: async () => {
+    messageDelete: async (client) => {
         // messageDelete
         /* Emitted whenever a message is deleted.
         PARAMETER      TYPE           DESCRIPTION
@@ -281,7 +281,7 @@ module.exports = {
         });
     },
 
-    messageDeleteBulk: async () => {
+    messageDeleteBulk: async (client) => {
         // messageDeleteBulk
         /* Emitted whenever messages are deleted in bulk.
         PARAMETER    TYPE                              DESCRIPTION
@@ -291,7 +291,7 @@ module.exports = {
         });
     },
 
-    messageReactionAdd: async () => {
+    messageReactionAdd: async (client) => {
         // messageReactionAdd
         /* Emitted whenever a reaction is added to a message.
         PARAMETER              TYPE                   DESCRIPTION
@@ -302,7 +302,7 @@ module.exports = {
         });
     },
 
-    messageReactionRemove: async () => {
+    messageReactionRemove: async (client) => {
         // messageReactionRemove
         /* Emitted whenever a reaction is removed from a message.
         PARAMETER              TYPE                   DESCRIPTION
@@ -313,7 +313,7 @@ module.exports = {
         });
     },
 
-    messageReactionRemoveAll: async () => {
+    messageReactionRemoveAll: async (client) => {
         // messageReactionRemoveAll
         /* Emitted whenever all reactions are removed from a message.
         PARAMETER          TYPE           DESCRIPTION
@@ -323,7 +323,7 @@ module.exports = {
         });
     },
 
-    messageUpdate: async () => {
+    messageUpdate: async (client) => {
         // messageUpdate
         /* Emitted whenever a message is updated - e.g. embed or content change.
         PARAMETER     TYPE           DESCRIPTION
@@ -334,7 +334,7 @@ module.exports = {
         });
     },
 
-    presenceUpdate: async () => {
+    presenceUpdate: async (client) => {
         // presenceUpdate
         /* Emitted whenever a guild member's presence changes, or they change one of their details.
         PARAMETER    TYPE               DESCRIPTION
@@ -345,7 +345,7 @@ module.exports = {
         });
     },
 
-    ready: async () => {
+    ready: async (client) => {
         // ready
         /* Emitted when the client becomes ready to start working.    */
         client.on("ready", function () {
@@ -362,7 +362,7 @@ module.exports = {
         });
     },
 
-    reconnecting: async () => {
+    reconnecting: async (client) => {
         // reconnecting
         /* Emitted whenever the client tries to reconnect to the WebSocket.    */
         client.on("reconnecting", function () {
@@ -370,7 +370,7 @@ module.exports = {
         });
     },
 
-    resume: async () => {
+    resume: async (client) => {
         // resume
         /* Emitted whenever a WebSocket resumes.
         PARAMETER    TYPE          DESCRIPTION
@@ -380,7 +380,7 @@ module.exports = {
         });
     },
 
-    roleCreate: async () => {
+    roleCreate: async (client) => {
         // roleCreate
         /* Emitted whenever a role is created.
         PARAMETER    TYPE        DESCRIPTION
@@ -390,7 +390,7 @@ module.exports = {
         });
     },
 
-    roleDelete: async () => {
+    roleDelete: async (client) => {
         // roleDelete
         /* Emitted whenever a guild role is deleted.
         PARAMETER    TYPE        DESCRIPTION
@@ -400,7 +400,7 @@ module.exports = {
         });
     },
 
-    roleUpdate: async () => {
+    roleUpdate: async (client) => {
         // roleUpdate
         /* Emitted whenever a guild role is updated.
         PARAMETER      TYPE        DESCRIPTION
@@ -411,7 +411,7 @@ module.exports = {
         });
     },
 
-    typingStart: async () => {
+    typingStart: async (client) => {
         // typingStart
         /* Emitted whenever a user starts typing in a channel.
         PARAMETER      TYPE            DESCRIPTION
@@ -423,7 +423,7 @@ module.exports = {
 
     },
 
-    typingStop: async () => {
+    typingStop: async (client) => {
         // typingStop
         /* Emitted whenever a user stops typing in a channel.
         PARAMETER       TYPE           DESCRIPTION
@@ -434,7 +434,7 @@ module.exports = {
         });
     },
 
-    userNoteUpdate: async () => {
+    userNoteUpdate: async (client) => {
         // userNoteUpdate
         /* Emitted whenever a note is updated.
         PARAMETER      TYPE          DESCRIPTION
@@ -446,7 +446,7 @@ module.exports = {
         });
     },
 
-    userUpdate: async () => {
+    userUpdate: async (client) => {
         // userUpdate
         /* Emitted whenever a user's details (e.g. username) are changed.
         PARAMETER      TYPE        DESCRIPTION
@@ -457,7 +457,7 @@ module.exports = {
         });
     },
 
-    voiceStateUpdate: async () => {
+    voiceStateUpdate: async (client) => {
         // voiceStateUpdate
         /* Emitted whenever a user changes voice state - e.g. joins/leaves a channel, mutes/unmutes.
         PARAMETER    TYPE             DESCRIPTION
@@ -468,7 +468,7 @@ module.exports = {
         });
     },
 
-    warn: async () => {
+    warn: async (client) => {
         // warn
         /* Emitted for general warnings. 
         PARAMETER    TYPE       DESCRIPTION
@@ -478,7 +478,7 @@ module.exports = {
         });
     },
 
-    all: async () => {
+    all: async (client) => {
         // channelCreate
         /* Emitted whenever a channel is created.
         PARAMETER    TYPE        DESCRIPTION
