@@ -1,6 +1,6 @@
 {
   "name": "discord.js-logger",
-  "version": "1.9.4.build.1909.02.1316.+7",
+  "version": "1.9.4",
   "description": "Discord.js all events!",
   "main": "index.js",
   "scripts": {
