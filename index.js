@@ -3,10 +3,8 @@
 //     listed here -> https://discord.js.org/#/docs/main/stable/class/Client
 //  Learn from this, do not just copy it mofo!
 
-const Discord = require('discord.js');
-const client = new Discord.Client();
 
-// const token = ""
+const token = ""
 var inviteLink = "";
 
 module.exports = {

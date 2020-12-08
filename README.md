@@ -7,7 +7,13 @@
 
 # Discord.js logger to Consolog
 
-### Support npm: https://discord.gg/TfG5hep
+### Discord: https://discord.gg/TfG5hep
+
+### QR
+
+<img align="" width="300" height="300" src="./qrcode/invite.gif">
+
+#### QR: https://imgur.com/a/58dR7S8
 
 ```css
 Discord all events!
@@ -31,7 +37,7 @@ const logger = require("discordjs-logger");
 //just call API
 logger.all(client);
 
-client.login("YOUR_DISCORD_APP_TOKEN")
+client.login("YOUR_DISCORD_APP_TOKEN");
 ```
 
 # API
@@ -43,8 +49,8 @@ client.login("YOUR_DISCORD_APP_TOKEN")
 |  channel  | Channel | The channel that was created |
 
 ```javascript
-client.on("channelCreate", function(channel) {
-  console.log(`channelCreate: ${channel}`);
+client.on("channelCreate", function (channel) {
+    console.log(`channelCreate: ${channel}`);
 });
 ```
 
@@ -55,8 +61,8 @@ client.on("channelCreate", function(channel) {
 |  channel  | Channel | The channel that was deleted |
 
 ```javascript
-client.on("channelDelete", function(channel) {
-  console.log(`channelDelete: ${channel}`);
+client.on("channelDelete", function (channel) {
+    console.log(`channelDelete: ${channel}`);
 });
 ```
 
@@ -68,8 +74,8 @@ client.on("channelDelete", function(channel) {
 |   time    |  Date   |         The time of the pins update          |
 
 ```javascript
-client.on("channelPinsUpdate", function(channel, time) {
-  console.log(`channelPinsUpdate: ${channel}:${time}`);
+client.on("channelPinsUpdate", function (channel, time) {
+    console.log(`channelPinsUpdate: ${channel}:${time}`);
 });
 ```
 
@@ -81,10 +87,10 @@ client.on("channelPinsUpdate", function(channel, time) {
 | newChannel | Channel | The channel after the update  |
 
 ```javascript
-client.on("channelUpdate", function(oldChannel, newChannel) {
-  console.log(
-    `channelUpdate -> a channel is updated - e.g. name change, topic change`
-  );
+client.on("channelUpdate", function (oldChannel, newChannel) {
+    console.log(
+        `channelUpdate -> a channel is updated - e.g. name change, topic change`
+    );
 });
 ```
 
@@ -95,8 +101,10 @@ client.on("channelUpdate", function(oldChannel, newChannel) {
 | clientUserGuildSettings | ClientUserGuildSettings | The new client user guild settings |
 
 ```javascript
-client.on("clientUserGuildSettingsUpdate", function(clientUserGuildSettings) {
-  console.log(`clientUserGuildSettingsUpdate -> client user's settings update`);
+client.on("clientUserGuildSettingsUpdate", function (clientUserGuildSettings) {
+    console.log(
+        `clientUserGuildSettingsUpdate -> client user's settings update`
+    );
 });
 ```
 
@@ -107,8 +115,8 @@ client.on("clientUserGuildSettingsUpdate", function(clientUserGuildSettings) {
 | clientUserSettings | ClientUserSettings | The new client user settings |
 
 ```javascript
-client.on("clientUserSettingsUpdate", function(clientUserSettings) {
-  console.log(`clientUserSettingsUpdate -> client user's settings update`);
+client.on("clientUserSettingsUpdate", function (clientUserSettings) {
+    console.log(`clientUserSettingsUpdate -> client user's settings update`);
 });
 ```
 
@@ -119,8 +127,8 @@ client.on("clientUserSettingsUpdate", function(clientUserSettings) {
 |   info    | string | The debug information |
 
 ```javascript
-client.on("debug", function(info) {
-  console.log(`debug -> ${info}`);
+client.on("debug", function (info) {
+    console.log(`debug -> ${info}`);
 });
 ```
 
@@ -131,10 +139,10 @@ client.on("debug", function(info) {
 |   Event   | CloseEvent | The WebSocket close event |
 
 ```javascript
-client.on("disconnect", function(event) {
-  console.log(
-    `The WebSocket has closed and will no longer attempt to reconnect`
-  );
+client.on("disconnect", function (event) {
+    console.log(
+        `The WebSocket has closed and will no longer attempt to reconnect`
+    );
 });
 ```
 
@@ -145,8 +153,8 @@ client.on("disconnect", function(event) {
 |   emoji   | Emoji | The emoji that was created |
 
 ```javascript
-client.on("emojiCreate", function(emoji) {
-  console.log(`a custom emoji is created in a guild`);
+client.on("emojiCreate", function (emoji) {
+    console.log(`a custom emoji is created in a guild`);
 });
 ```
 
@@ -157,8 +165,8 @@ client.on("emojiCreate", function(emoji) {
 |   emoji   | Emoji | The emoji that was deleted |
 
 ```javascript
-client.on("emojiDelete", function(emoji) {
-  console.log(`a custom guild emoji is deleted`);
+client.on("emojiDelete", function (emoji) {
+    console.log(`a custom guild emoji is deleted`);
 });
 ```
 
@@ -170,8 +178,8 @@ client.on("emojiDelete", function(emoji) {
 | newEmoji  | Emoji | The new emoji |
 
 ```javascript
-client.on("emojiUpdate", function(oldEmoji, newEmoji) {
-  console.log(`a custom guild emoji is updated`);
+client.on("emojiUpdate", function (oldEmoji, newEmoji) {
+    console.log(`a custom guild emoji is updated`);
 });
 ```
 
@@ -182,8 +190,10 @@ client.on("emojiUpdate", function(oldEmoji, newEmoji) {
 |   error   | Error | The encountered error |
 
 ```javascript
-client.on("error", function(error) {
-  console.error(`client's WebSocket encountered a connection error: ${error}`);
+client.on("error", function (error) {
+    console.error(
+        `client's WebSocket encountered a connection error: ${error}`
+    );
 });
 ```
 
@@ -195,8 +205,8 @@ client.on("error", function(error) {
 |   user    | User  |      The user that was banned      |
 
 ```javascript
-client.on("guildBanAdd", function(guild, user) {
-  console.log(`a member is banned from a guild`);
+client.on("guildBanAdd", function (guild, user) {
+    console.log(`a member is banned from a guild`);
 });
 ```
 
@@ -208,8 +218,8 @@ client.on("guildBanAdd", function(guild, user) {
 |   user    | User  |      The user that was unbanned      |
 
 ```javascript
-client.on("guildBanRemove", function(guild, user) {
-  console.log(`a member is unbanned from a guild`);
+client.on("guildBanRemove", function (guild, user) {
+    console.log(`a member is unbanned from a guild`);
 });
 ```
 
@@ -220,8 +230,8 @@ client.on("guildBanRemove", function(guild, user) {
 |   guild   | Guild | The created guild |
 
 ```javascript
-client.on("guildCreate", function(guild) {
-  console.log(`the client joins a guild`);
+client.on("guildCreate", function (guild) {
+    console.log(`the client joins a guild`);
 });
 ```
 
@@ -232,8 +242,8 @@ client.on("guildCreate", function(guild) {
 |   guild   | Guild | The guild that was deleted |
 
 ```javascript
-client.on("guildDelete", function(guild) {
-  console.log(`the client deleted/left a guild`);
+client.on("guildDelete", function (guild) {
+    console.log(`the client deleted/left a guild`);
 });
 ```
 
@@ -244,8 +254,8 @@ client.on("guildDelete", function(guild) {
 |  member   | GuildMember | The member that has joined a guild |
 
 ```javascript
-client.on("guildMemberAdd", function(member) {
-  console.log(`a user joins a guild: ${member.tag}`);
+client.on("guildMemberAdd", function (member) {
+    console.log(`a user joins a guild: ${member.tag}`);
 });
 ```
 
@@ -256,8 +266,8 @@ client.on("guildMemberAdd", function(member) {
 |  member   | GuildMember | The member that became available |
 
 ```javascript
-client.on("guildMemberAvailable", function(member) {
-  console.log(`member becomes available in a large guild: ${member.tag}`);
+client.on("guildMemberAvailable", function (member) {
+    console.log(`member becomes available in a large guild: ${member.tag}`);
 });
 ```
 
@@ -268,8 +278,8 @@ client.on("guildMemberAvailable", function(member) {
 |  member   | GuildMember | The member that has left/been kicked from the guild |
 
 ```javascript
-client.on("guildMemberRemove", function(member) {
-  console.log(`a member leaves a guild, or is kicked: ${member.tag}`);
+client.on("guildMemberRemove", function (member) {
+    console.log(`a member leaves a guild, or is kicked: ${member.tag}`);
 });
 ```
 
@@ -281,8 +291,8 @@ client.on("guildMemberRemove", function(member) {
 |   guild   |       Guild        | The guild related to the member chunk |
 
 ```javascript
-client.on("guildMembersChunk", function(members, guild) {
-  console.error(`a chunk of guild members is received`);
+client.on("guildMembersChunk", function (members, guild) {
+    console.error(`a chunk of guild members is received`);
 });
 ```
 
@@ -294,8 +304,8 @@ client.on("guildMembersChunk", function(members, guild) {
 | speaking  |   boolean   |  Whether or not the member is speaking   |
 
 ```javascript
-client.on("guildMemberSpeaking", function(member, speaking) {
-  console.log(`a guild member starts/stops speaking: ${member.tag}`);
+client.on("guildMemberSpeaking", function (member, speaking) {
+    console.log(`a guild member starts/stops speaking: ${member.tag}`);
 });
 ```
 
@@ -307,10 +317,10 @@ client.on("guildMemberSpeaking", function(member, speaking) {
 | newMember | GuildMember | The member after the update  |
 
 ```javascript
-client.on("guildMemberUpdate", function(oldMember, newMember) {
-  console.error(
-    `a guild member changes - i.e. new role, removed role, nickname.`
-  );
+client.on("guildMemberUpdate", function (oldMember, newMember) {
+    console.error(
+        `a guild member changes - i.e. new role, removed role, nickname.`
+    );
 });
 ```
 
@@ -321,10 +331,10 @@ client.on("guildMemberUpdate", function(oldMember, newMember) {
 |   guild   | Guild | The guild that has become unavailable |
 
 ```javascript
-client.on("guildUnavailable", function(guild) {
-  console.error(
-    `a guild becomes unavailable, likely due to a server outage: ${guild}`
-  );
+client.on("guildUnavailable", function (guild) {
+    console.error(
+        `a guild becomes unavailable, likely due to a server outage: ${guild}`
+    );
 });
 ```
 
@@ -336,8 +346,8 @@ client.on("guildUnavailable", function(guild) {
 | newGuild  | Guild | The guild after the update  |
 
 ```javascript
-client.on("guildUpdate", function(oldGuild, newGuild) {
-  console.error(`a guild is updated`);
+client.on("guildUpdate", function (oldGuild, newGuild) {
+    console.error(`a guild is updated`);
 });
 ```
 
@@ -348,8 +358,8 @@ client.on("guildUpdate", function(oldGuild, newGuild) {
 |  message  | Message | The created message |
 
 ```javascript
-client.on("message", function(message) {
-  console.log(`message is created -> ${message}`);
+client.on("message", function (message) {
+    console.log(`message is created -> ${message}`);
 });
 ```
 
@@ -360,8 +370,8 @@ client.on("message", function(message) {
 |  message  | Message | The deleted message |
 
 ```javascript
-client.on("messageDelete", function(message) {
-  console.log(`message is deleted -> ${message}`);
+client.on("messageDelete", function (message) {
+    console.log(`message is deleted -> ${message}`);
 });
 ```
 
@@ -372,8 +382,8 @@ client.on("messageDelete", function(message) {
 | messages  | Collection<Snowflake, Message> | The deleted messages, mapped by their ID |
 
 ```javascript
-client.on("messageDeleteBulk", function(messages) {
-  console.log(`messages are deleted -> ${messages}`);
+client.on("messageDeleteBulk", function (messages) {
+    console.log(`messages are deleted -> ${messages}`);
 });
 ```
 
@@ -385,8 +395,8 @@ client.on("messageDeleteBulk", function(messages) {
 |      user       |      User       | The user that applied the emoji or reaction emoji |
 
 ```javascript
-client.on("messageReactionAdd", function(messageReaction, user) {
-  console.log(`a reaction is added to a message`);
+client.on("messageReactionAdd", function (messageReaction, user) {
+    console.log(`a reaction is added to a message`);
 });
 ```
 
@@ -398,8 +408,8 @@ client.on("messageReactionAdd", function(messageReaction, user) {
 |      user       |      User       | The user that removed the emoji or reaction emoji |
 
 ```javascript
-client.on("messageReactionRemove", function(messageReaction, user) {
-  console.log(`a reaction is removed from a message`);
+client.on("messageReactionRemove", function (messageReaction, user) {
+    console.log(`a reaction is removed from a message`);
 });
 ```
 
@@ -410,8 +420,8 @@ client.on("messageReactionRemove", function(messageReaction, user) {
 |  message  | Message | The message the reactions were removed from |
 
 ```javascript
-client.on("messageReactionRemoveAll", function(message) {
-  console.error(`all reactions are removed from a message`);
+client.on("messageReactionRemoveAll", function (message) {
+    console.error(`all reactions are removed from a message`);
 });
 ```
 
@@ -423,8 +433,8 @@ client.on("messageReactionRemoveAll", function(message) {
 | newMessage | Message | The message after the update  |
 
 ```javascript
-client.on("messageUpdate", function(oldMessage, newMessage) {
-  console.log(`a message is updated`);
+client.on("messageUpdate", function (oldMessage, newMessage) {
+    console.log(`a message is updated`);
 });
 ```
 
@@ -436,8 +446,8 @@ client.on("messageUpdate", function(oldMessage, newMessage) {
 | newMember | GuildMember | The member after the presence update  |
 
 ```javascript
-client.on("presenceUpdate", function(oldMember, newMember) {
-  console.log(`a guild member's presence changes`);
+client.on("presenceUpdate", function (oldMember, newMember) {
+    console.log(`a guild member's presence changes`);
 });
 ```
 
@@ -446,22 +456,21 @@ client.on("presenceUpdate", function(oldMember, newMember) {
 | PARAMETER | TYPE | DESCRIPTION |
 | :-------: | :--: | :---------: |
 
-
 ```javascript
-client.on("ready", function() {
-  console.log(`the client becomes ready to start`);
-  console.log(`I am ready! Logged in as ${client.user.tag}!`);
-  console.log(
-    `Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`
-  );
+client.on("ready", function () {
+    console.log(`the client becomes ready to start`);
+    console.log(`I am ready! Logged in as ${client.user.tag}!`);
+    console.log(
+        `Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`
+    );
 
-  client.user.setActivity("the upright organ");
-  client
-    .generateInvite(["SEND_MESSAGES", "MANAGE_GUILD", "MENTION_EVERYONE"])
-    .then(link => {
-      console.log(`Generated bot invite link: ${link}`);
-      inviteLink = link;
-    });
+    client.user.setActivity("the upright organ");
+    client
+        .generateInvite(["SEND_MESSAGES", "MANAGE_GUILD", "MENTION_EVERYONE"])
+        .then((link) => {
+            console.log(`Generated bot invite link: ${link}`);
+            inviteLink = link;
+        });
 });
 ```
 
@@ -470,10 +479,9 @@ client.on("ready", function() {
 | PARAMETER | TYPE | DESCRIPTION |
 | :-------: | :--: | :---------: |
 
-
 ```javascript
-client.on("reconnecting", function() {
-  console.log(`client tries to reconnect to the WebSocket`);
+client.on("reconnecting", function () {
+    console.log(`client tries to reconnect to the WebSocket`);
 });
 ```
 
@@ -484,8 +492,8 @@ client.on("reconnecting", function() {
 | replayed  | number | The number of events that were replayed |
 
 ```javascript
-client.on("resume", function(replayed) {
-  console.log(`whenever a WebSocket resumes, ${replayed} replays`);
+client.on("resume", function (replayed) {
+    console.log(`whenever a WebSocket resumes, ${replayed} replays`);
 });
 ```
 
@@ -496,8 +504,8 @@ client.on("resume", function(replayed) {
 |   role    | Role | The role that was created |
 
 ```javascript
-client.on("roleCreate", function(role) {
-  console.error(`a role is created`);
+client.on("roleCreate", function (role) {
+    console.error(`a role is created`);
 });
 ```
 
@@ -508,8 +516,8 @@ client.on("roleCreate", function(role) {
 |   role    | Role | The role that was deleted |
 
 ```javascript
-client.on("roleDelete", function(role) {
-  console.error(`a guild role is deleted`);
+client.on("roleDelete", function (role) {
+    console.error(`a guild role is deleted`);
 });
 ```
 
@@ -521,8 +529,8 @@ client.on("roleDelete", function(role) {
 |  newRole  | Role | The role after the update  |
 
 ```javascript
-client.on("roleUpdate", function(oldRole, newRole) {
-  console.error(`a guild role is updated`);
+client.on("roleUpdate", function (oldRole, newRole) {
+    console.error(`a guild role is updated`);
 });
 ```
 
@@ -534,8 +542,8 @@ client.on("roleUpdate", function(oldRole, newRole) {
 |   user    |  User   |      The user that started typing      |
 
 ```javascript
-client.on("typingStart", function(channel, user) {
-  console.log(`${user.tag} has started typing`);
+client.on("typingStart", function (channel, user) {
+    console.log(`${user.tag} has started typing`);
 });
 ```
 
@@ -547,8 +555,8 @@ client.on("typingStart", function(channel, user) {
 |   user    |  User   |      The user that stopped typing      |
 
 ```javascript
-client.on("typingStop", function(channel, user) {
-  console.log(`${user.tag} has stopped typing`);
+client.on("typingStop", function (channel, user) {
+    console.log(`${user.tag} has stopped typing`);
 });
 ```
 
@@ -561,8 +569,8 @@ client.on("typingStop", function(channel, user) {
 |  newNote  | String | The note content after the update  |
 
 ```javascript
-client.on("userNoteUpdate", function(user, oldNote, newNote) {
-  console.log(`a member's note is updated`);
+client.on("userNoteUpdate", function (user, oldNote, newNote) {
+    console.log(`a member's note is updated`);
 });
 ```
 
@@ -574,8 +582,8 @@ client.on("userNoteUpdate", function(user, oldNote, newNote) {
 |  newUser  | User | The user after the update  |
 
 ```javascript
-client.on("userUpdate", function(oldUser, newUser) {
-  console.log(`user's details (e.g. username) are changed`);
+client.on("userUpdate", function (oldUser, newUser) {
+    console.log(`user's details (e.g. username) are changed`);
 });
 ```
 
@@ -587,8 +595,8 @@ client.on("userUpdate", function(oldUser, newUser) {
 | newMember | GuildMember | The member after the voice state update  |
 
 ```javascript
-client.on("voiceStateUpdate", function(oldMember, newMember) {
-  console.log(`a user changes voice state`);
+client.on("voiceStateUpdate", function (oldMember, newMember) {
+    console.log(`a user changes voice state`);
 });
 ```
 
@@ -599,7 +607,7 @@ client.on("voiceStateUpdate", function(oldMember, newMember) {
 |   info    | string | The warning |
 
 ```javascript
-client.on("warn", function(info) {
-  console.log(`warn: ${info}`);
+client.on("warn", function (info) {
+    console.log(`warn: ${info}`);
 });
 ```
