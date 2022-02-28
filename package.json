@@ -1,6 +1,6 @@
 {
   "name": "discordjs-logger",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Discord.js all events!",
   "main": "index.js",
   "scripts": {
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/onepiecehung/discordjs-logger/issues"
   },
-  "homepage": "https://github.com/onepiecehung/discordjs-logger#readme"
+  "homepage": "https://github.com/onepiecehung/discordjs-logger#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0"
+  }
 }

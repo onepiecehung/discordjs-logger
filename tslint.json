@@ -1,0 +1,24 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "no-console": false,
+        "new-parens": false,
+        "no-empty": false,
+        "no-unused-variable": false,
+        "object-literal-shorthand": false,
+        "ban-types": false,
+        "triple-equals": false,
+        "no-unused-expression": false,
+        "no-trailing-whitespace": false,
+        "radix": false,
+        "arrow-return-shorthand": false,
+        "one-variable-per-declaration": false,
+        "variable-name": false,
+        "no-shadowed-variable": false
+    },
+    "rulesDirectory": []
+}

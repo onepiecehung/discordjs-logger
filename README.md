@@ -20,9 +20,17 @@ Discord all events!
 A quick and dirty fleshing out of the discord.js event listeners
 (not tested at all!)
 listed here -> https://discord.js.org/#/docs/main/stable/class/Client
-Learn from this, do not just copy it mofo!
 Saved to -> https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
 ```
+
+---
+
+### In the new version
+
+-   support discord v13
+-   add more event
+
+---
 
 ```npm
 npm i discordjs-logger
@@ -30,17 +38,24 @@ yarn add discordjs-logger
 ```
 
 ```javascript
-const Discord = require("discord.js");
-const client = new Discord.Client();
-const logger = require("discordjs-logger");
+import { Client, Intents } from "discord.js";
 
-//just call API
-logger.all(client);
+const client = new Client({
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],
+});
+// Add more intents if you wanna debug
+import DiscordLogger from "discordjs-logger";
+
+const logger = new DiscordLogger(client);
+
+logger.debug();
 
 client.login("YOUR_DISCORD_APP_TOKEN");
 ```
 
 # API
+
+## https://discord.js.org/#/docs/main/stable/class/Client
 
 ## channelCreate(): Emitted whenever a channel is created.
 
