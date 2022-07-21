@@ -74,7 +74,7 @@ const client = new Client({
     ],
 });
 // Add more intents if you wanna debug
-import DiscordLogger from "./index";
+import DiscordLogger from "discordjs-logger";
 
 const logger = new DiscordLogger(client);
 
