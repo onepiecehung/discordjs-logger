@@ -4,28 +4,14 @@
 //     listed here -> https://discord.js.org/#/docs/main/stable/class/Client
 //  Learn from this, do not just copy it mofo!
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CDiscordEvent = void 0;
 class CDiscordEvent {
     client;
     constructor(client) {
         this.client = client;
     }
-    /**
-     * apiRequest
-     */
-    // TODO: The request that is about to be sent
-    apiRequest() {
-        this.client.on("apiRequest", (apiRequest) => {
-            console.log("API Request: ", apiRequest);
-        });
-    }
-    /**
-     * apiResponse
-     */
-    apiResponse() {
-        this.client.on("apiResponse", (request, response) => {
-            console.log("APIResponse: ", request);
-            console.log("APIResponse: ", response);
+    applicationCommandPermissionsUpdate() {
+        this.client.on("applicationCommandPermissionsUpdate", (application) => {
+            console.log("applicationCommandPermissionsUpdate: ", application);
         });
     }
     /**
@@ -57,13 +43,7 @@ class CDiscordEvent {
      */
     channelUpdate() {
         this.client.on("channelUpdate", (oldChannel, newChannel) => {
-            console.log(
-                "channelUpdate: ",
-                "oldChannel: ",
-                oldChannel,
-                "newChannel: ",
-                newChannel
-            );
+            console.log("channelUpdate: ", "oldChannel: ", oldChannel, "newChannel: ", newChannel);
         });
     }
     /**
@@ -95,13 +75,7 @@ class CDiscordEvent {
      */
     emojiUpdate() {
         this.client.on("emojiUpdate", (oldEmoji, newEmoji) => {
-            console.log(
-                "emojiUpdate: ",
-                "oldEmoji: ",
-                oldEmoji,
-                "newEmoji: ",
-                newEmoji
-            );
+            console.log("emojiUpdate: ", "oldEmoji: ", oldEmoji, "newEmoji: ", newEmoji);
         });
     }
     /**
@@ -181,15 +155,7 @@ class CDiscordEvent {
      */
     guildMembersChunk() {
         this.client.on("guildMembersChunk", (members, guild, chunk) => {
-            console.log(
-                "guildMembersChunk: ",
-                "members: ",
-                members,
-                "guild: ",
-                guild,
-                "chunk",
-                chunk
-            );
+            console.log("guildMembersChunk: ", "members: ", members, "guild: ", guild, "chunk", chunk);
         });
     }
     /**
@@ -197,13 +163,7 @@ class CDiscordEvent {
      */
     guildMemberUpdate() {
         this.client.on("guildMemberUpdate", (oldMember, newMember) => {
-            console.log(
-                "guildMemberUpdate: ",
-                "oldMember: ",
-                oldMember,
-                "newMember: ",
-                newMember
-            );
+            console.log("guildMemberUpdate: ", "oldMember: ", oldMember, "newMember: ", newMember);
         });
     }
     /**
@@ -226,52 +186,25 @@ class CDiscordEvent {
      * guildScheduledEventUpdate
      */
     guildScheduledEventUpdate() {
-        this.client.on(
-            "guildScheduledEventUpdate",
-            (oldGuildScheduledEvent, newGuildScheduledEvent) => {
-                console.log(
-                    "guildScheduledEventDelete: ",
-                    "oldGuildScheduledEvent: ",
-                    oldGuildScheduledEvent,
-                    "newGuildScheduledEvent: ",
-                    newGuildScheduledEvent
-                );
-            }
-        );
+        this.client.on("guildScheduledEventUpdate", (oldGuildScheduledEvent, newGuildScheduledEvent) => {
+            console.log("guildScheduledEventUpdate: ", "oldGuildScheduledEvent: ", oldGuildScheduledEvent, "newGuildScheduledEvent: ", newGuildScheduledEvent);
+        });
     }
     /**
      * guildScheduledEventUserAdd
      */
     guildScheduledEventUserAdd() {
-        this.client.on(
-            "guildScheduledEventUserAdd",
-            (guildScheduledEvent, user) => {
-                console.log(
-                    "guildScheduledEventUserAdd: ",
-                    "guildScheduledEvent: ",
-                    guildScheduledEvent,
-                    "user: ",
-                    user
-                );
-            }
-        );
+        this.client.on("guildScheduledEventUserAdd", (guildScheduledEvent, user) => {
+            console.log("guildScheduledEventUserAdd: ", "guildScheduledEvent: ", guildScheduledEvent, "user: ", user);
+        });
     }
     /**
      * guildScheduledEventUserRemove
      */
     guildScheduledEventUserRemove() {
-        this.client.on(
-            "guildScheduledEventUserRemove",
-            (guildScheduledEvent, user) => {
-                console.log(
-                    "guildScheduledEventUserRemove: ",
-                    "guildScheduledEvent: ",
-                    guildScheduledEvent,
-                    "user: ",
-                    user
-                );
-            }
-        );
+        this.client.on("guildScheduledEventUserRemove", (guildScheduledEvent, user) => {
+            console.log("guildScheduledEventUserRemove: ", "guildScheduledEvent: ", guildScheduledEvent, "user: ", user);
+        });
     }
     /**
      * guildUnavailable
@@ -286,13 +219,7 @@ class CDiscordEvent {
      */
     guildUpdate() {
         this.client.on("guildUpdate", (oldGuild, newGuild) => {
-            console.log(
-                "guildUpdate: ",
-                "oldGuild: ",
-                oldGuild,
-                "newGuild: ",
-                newGuild
-            );
+            console.log("guildUpdate: ", "oldGuild: ", oldGuild, "newGuild: ", newGuild);
         });
     }
     /**
@@ -313,15 +240,9 @@ class CDiscordEvent {
      * invalidRequestWarning
      */
     invalidRequestWarning() {
-        this.client.on(
-            "invalidRequestWarningData",
-            (invalidRequestWarningData) => {
-                console.log(
-                    "invalidRequestWarningData: ",
-                    invalidRequestWarningData
-                );
-            }
-        );
+        this.client.on("invalidRequestWarningData", (invalidRequestWarningData) => {
+            console.log("invalidRequestWarningData: ", invalidRequestWarningData);
+        });
     }
     /**
      * inviteCreate
@@ -359,8 +280,9 @@ class CDiscordEvent {
      * messageDeleteBulk
      */
     messageDeleteBulk() {
-        this.client.on("messageDeleteBulk", (messages) => {
-            console.log("messageDeleteBulk: ", messages);
+        this.client.on("messageDeleteBulk", (messages, channel) => {
+            console.log("messageDeleteBulk: ", "messages", messages);
+            console.log("messageDeleteBulk: ", "channel", channel);
         });
     }
     /**
@@ -368,13 +290,7 @@ class CDiscordEvent {
      */
     messageReactionAdd() {
         this.client.on("messageReactionAdd", (messageReaction, user) => {
-            console.log(
-                "messageReactionAdd: ",
-                "messageReaction: ",
-                messageReaction,
-                "user: ",
-                user
-            );
+            console.log("messageReactionAdd: ", "messageReaction: ", messageReaction, "user: ", user);
         });
     }
     /**
@@ -382,13 +298,7 @@ class CDiscordEvent {
      */
     messageReactionRemove() {
         this.client.on("messageReactionRemove", (messageReaction, user) => {
-            console.log(
-                "messageReactionRemove: ",
-                "messageReaction: ",
-                messageReaction,
-                "user: ",
-                user
-            );
+            console.log("messageReactionRemove: ", "messageReaction: ", messageReaction, "user: ", user);
         });
     }
     /**
@@ -396,13 +306,7 @@ class CDiscordEvent {
      */
     messageReactionRemoveAll() {
         this.client.on("messageReactionRemoveAll", (message, reactions) => {
-            console.log(
-                "messageReactionRemoveAll: ",
-                "message: ",
-                message,
-                "reactions: ",
-                reactions
-            );
+            console.log("messageReactionRemoveAll: ", "message: ", message, "reactions: ", reactions);
         });
     }
     /**
@@ -418,13 +322,7 @@ class CDiscordEvent {
      */
     messageUpdate() {
         this.client.on("messageUpdate", (oldMessage, newMessage) => {
-            console.log(
-                "messageUpdate: ",
-                "oldMessage: ",
-                oldMessage,
-                "newMessage: ",
-                newMessage
-            );
+            console.log("messageUpdate: ", "oldMessage: ", oldMessage, "newMessage: ", newMessage);
         });
     }
     /**
@@ -432,13 +330,7 @@ class CDiscordEvent {
      */
     presenceUpdate() {
         this.client.on("presenceUpdate", (oldPresence, newPresence) => {
-            console.log(
-                "presenceUpdate: ",
-                "oldPresence: ",
-                oldPresence,
-                "newPresence: ",
-                newPresence
-            );
+            console.log("presenceUpdate: ", "oldPresence: ", oldPresence, "newPresence: ", newPresence);
         });
     }
     /**
@@ -478,13 +370,7 @@ class CDiscordEvent {
      */
     roleUpdate() {
         this.client.on("roleUpdate", (oldRole, newRole) => {
-            console.log(
-                "roleUpdate: ",
-                "oldRole: ",
-                oldRole,
-                "newRole: ",
-                newRole
-            );
+            console.log("roleUpdate: ", "oldRole: ", oldRole, "newRole: ", newRole);
         });
     }
     /**
@@ -508,13 +394,7 @@ class CDiscordEvent {
      */
     shardReady() {
         this.client.on("shardReady", (id, unavailableGuilds) => {
-            console.log(
-                "shardReady: ",
-                "id: ",
-                id,
-                "unavailableGuilds: ",
-                unavailableGuilds
-            );
+            console.log("shardReady: ", "id: ", id, "unavailableGuilds: ", unavailableGuilds);
         });
     }
     /**
@@ -530,13 +410,7 @@ class CDiscordEvent {
      */
     shardResume() {
         this.client.on("shardResume", (id, replayedEvents) => {
-            console.log(
-                "shardResume: ",
-                "id: ",
-                id,
-                "replayedEvents: ",
-                replayedEvents
-            );
+            console.log("shardResume: ", "id: ", id, "replayedEvents: ", replayedEvents);
         });
     }
     /**
@@ -559,18 +433,9 @@ class CDiscordEvent {
      * stageInstanceUpdate
      */
     stageInstanceUpdate() {
-        this.client.on(
-            "stageInstanceUpdate",
-            (oldStageInstance, newStageInstance) => {
-                console.log(
-                    "stageInstanceUpdate: ",
-                    "oldStageInstance: ",
-                    oldStageInstance,
-                    "newStageInstance: ",
-                    newStageInstance
-                );
-            }
-        );
+        this.client.on("stageInstanceUpdate", (oldStageInstance, newStageInstance) => {
+            console.log("stageInstanceUpdate: ", "oldStageInstance: ", oldStageInstance, "newStageInstance: ", newStageInstance);
+        });
     }
     /**
      * stickerCreate
@@ -593,21 +458,16 @@ class CDiscordEvent {
      */
     stickerUpdate() {
         this.client.on("stickerUpdate", (oldSticker, newSticker) => {
-            console.log(
-                "stickerUpdate: ",
-                "oldSticker: ",
-                oldSticker,
-                "newSticker: ",
-                newSticker
-            );
+            console.log("stickerUpdate: ", "oldSticker: ", oldSticker, "newSticker: ", newSticker);
         });
     }
     /**
      * threadCreate
      */
     threadCreate() {
-        this.client.on("threadCreate", (thread) => {
-            console.log("threadCreate: ", thread);
+        this.client.on("threadCreate", (thread, newlyCreated) => {
+            console.log("threadCreate: thread", thread);
+            console.log("threadCreate: newlyCreated", newlyCreated);
         });
     }
     /**
@@ -622,22 +482,18 @@ class CDiscordEvent {
      * threadListSync
      */
     threadListSync() {
-        this.client.on("threadListSync", (threads) => {
-            console.log("threadListSync: ", threads);
+        this.client.on("threadListSync", (threads, guild) => {
+            console.log("threadListSync: threads", threads);
+            console.log("threadListSync: guild", guild);
         });
     }
     /**
      * threadMembersUpdate
      */
     threadMembersUpdate() {
-        this.client.on("threadMembersUpdate", (oldMembers, newMembers) => {
-            console.log(
-                "threadMembersUpdate: ",
-                "oldMembers: ",
-                oldMembers,
-                "newMembers: ",
-                newMembers
-            );
+        this.client.on("threadMembersUpdate", (addedMembers, removedMembers, thread) => {
+            console.log("threadMembersUpdate: ", "addedMembers: ", addedMembers, "removedMembers: ", removedMembers);
+            console.log(thread);
         });
     }
     /**
@@ -645,13 +501,7 @@ class CDiscordEvent {
      */
     threadMemberUpdate() {
         this.client.on("threadMemberUpdate", (oldMember, newMember) => {
-            console.log(
-                "threadMemberUpdate: ",
-                "oldMember: ",
-                oldMember,
-                "newMember: ",
-                newMember
-            );
+            console.log("threadMemberUpdate: ", "oldMember: ", oldMember, "newMember: ", newMember);
         });
     }
     /**
@@ -659,13 +509,7 @@ class CDiscordEvent {
      */
     threadUpdate() {
         this.client.on("threadUpdate", (oldThread, newThread) => {
-            console.log(
-                "threadUpdate: ",
-                "oldThread: ",
-                oldThread,
-                "newThread: ",
-                newThread
-            );
+            console.log("threadUpdate: ", "oldThread: ", oldThread, "newThread: ", newThread);
         });
     }
     /**
@@ -681,13 +525,7 @@ class CDiscordEvent {
      */
     userUpdate() {
         this.client.on("userUpdate", (oldUser, newUser) => {
-            console.log(
-                "userUpdate: ",
-                "oldUser: ",
-                oldUser,
-                "newUser: ",
-                newUser
-            );
+            console.log("userUpdate: ", "oldUser: ", oldUser, "newUser: ", newUser);
         });
     }
     /**
@@ -695,13 +533,7 @@ class CDiscordEvent {
      */
     voiceStateUpdate() {
         this.client.on("voiceStateUpdate", (oldState, newState) => {
-            console.log(
-                "voiceStateUpdate: ",
-                "oldState: ",
-                oldState,
-                "newState",
-                newState
-            );
+            console.log("voiceStateUpdate: ", "oldState: ", oldState, "newState", newState);
         });
     }
     /**
@@ -721,5 +553,4 @@ class CDiscordEvent {
         });
     }
 }
-exports.CDiscordEvent = CDiscordEvent;
 exports.default = CDiscordEvent;

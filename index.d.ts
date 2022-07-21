@@ -1,15 +1,8 @@
 import { Client } from "discord.js";
-export declare class CDiscordEvent {
+declare class CDiscordEvent {
     private client;
     constructor(client: Client);
-    /**
-     * apiRequest
-     */
-    apiRequest(): void;
-    /**
-     * apiResponse
-     */
-    apiResponse(): void;
+    applicationCommandPermissionsUpdate(): void;
     /**
      * channelCreate
      */

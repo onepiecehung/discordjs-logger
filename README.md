@@ -25,26 +25,56 @@ Saved to -> https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
 
 ---
 
-### In the new version
+## Note
 
--   support discord v13
--   add more event
+-   use discordjs-logger version 4 for discord.js@14 or greater [Docs](https://discord.js.org/#/docs/discord.js/14.0.3/class/Client)
+-   use discordjs-logger version 3 for discord.js@13 or less than [Docs](https://discord.js.org/#/docs/main/stable/class/Client)
 
----
+###### If you see that: [DISALLOWED_INTENTS]: Privileged intent provided is not enabled or whitelisted
 
-```npm
+Following: https://stackoverflow.com/questions/64006888/can-anyone-explain-the-issue
+
+## Install
+
+```shell
 npm i discordjs-logger
 yarn add discordjs-logger
 ```
 
-```javascript
-import { Client, Intents } from "discord.js";
+```ts
+import { Client, GatewayIntentBits, Partials } from "discord.js";
 
 const client = new Client({
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES],
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildBans,
+        GatewayIntentBits.GuildEmojisAndStickers,
+        GatewayIntentBits.GuildIntegrations,
+        GatewayIntentBits.GuildWebhooks,
+        GatewayIntentBits.GuildInvites,
+        GatewayIntentBits.GuildPresences,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.GuildMessageTyping,
+        GatewayIntentBits.DirectMessages,
+        GatewayIntentBits.DirectMessageReactions,
+        GatewayIntentBits.DirectMessageTyping,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildScheduledEvents,
+    ],
+    partials: [
+        Partials.User,
+        Partials.Channel,
+        Partials.GuildMember,
+        Partials.Message,
+        Partials.Reaction,
+        Partials.GuildScheduledEvent,
+        Partials.ThreadMember,
+    ],
 });
 // Add more intents if you wanna debug
-import DiscordLogger from "discordjs-logger";
+import DiscordLogger from "./index";
 
 const logger = new DiscordLogger(client);
 
