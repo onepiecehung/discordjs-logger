@@ -1,658 +1,207 @@
 <div align="center">
   <p>
-    <a href="https://nodei.co/npm/discordjs-logger
-/"><img src="https://nodei.co/npm/discordjs-logger.png?downloads=true&stars=true" alt="NPM info" /></a>
+    <a href="https://nodei.co/npm/discordjs-logger/">
+      <img src="https://nodei.co/npm/discordjs-logger.png?downloads=true&stars=true" alt="NPM info" />
+    </a>
   </p>
 </div>
 
-# Discord.js logger to Consolog
+# discordjs-logger v5
 
-### Discord: https://discord.gg/TfG5hep
-
-### QR
-
-<img align="" width="300" height="300" src="./qrcode/invite.gif">
-
-#### QR: https://imgur.com/a/58dR7S8
-
-```css
-Discord all events!
-A quick and dirty fleshing out of the discord.js event listeners
-(not tested at all!)
-listed here -> https://discord.js.org/#/docs/main/stable/class/Client
-Saved to -> https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
-```
+A lightweight logger for Discord.js events – now with a new generic API for flexible event registration!
 
 ---
 
-## Note
+## Overview
 
--   use discordjs-logger version 4 for discord.js@14 or greater [Docs](https://discord.js.org/#/docs/discord.js/14.0.3/class/Client)
--   use discordjs-logger version 3 for discord.js@13 or less than [Docs](https://discord.js.org/#/docs/main/stable/class/Client)
+Version 5 of discordjs-logger introduces a simplified and flexible API. Rather than having separate methods for every event (as in v4), you now register events via a generic interface. You can:
 
-###### If you see that: [DISALLOWED_INTENTS]: Privileged intent provided is not enabled or whitelisted
+- **Register a single event** with a custom handler using `on()`.
+- **Bulk-register events** with default logging or custom handlers via `registerEvents()`.
+- **Log all available events** from Discord.js with a single call using `logAllEvents()`.
 
-Following: https://stackoverflow.com/questions/64006888/can-anyone-explain-the-issue
+This approach reduces boilerplate and makes your code easier to maintain.
 
-## Install
+---
 
-```shell
-npm i discordjs-logger
-yarn add discordjs-logger
+## Installation
+
+To install discordjs-logger v5, update your package.json to use version 5:
+
+```sh
+npm i discordjs-logger@^5.0.0
+```
+### or
+```sh
+yarn add discordjs-logger@^5.0.0
 ```
 
-```ts
-import { Client, GatewayIntentBits, Partials } from "discord.js";
+_Note: If you’re still on v4, your package-lock or yarn.lock will prevent automatic upgrade. Please refer to the [Migration Guide](#migration-guide) below._
+
+---
+
+## Usage Instructions (v5)
+
+Below are some examples demonstrating the new API.
+
+### Basic Setup
+
+```typescript
+import { Client, GatewayIntentBits, Events } from "discord.js";
+import DiscordEventHandler from "discordjs-logger";
 
 const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildBans,
-        GatewayIntentBits.GuildEmojisAndStickers,
-        GatewayIntentBits.GuildIntegrations,
-        GatewayIntentBits.GuildWebhooks,
-        GatewayIntentBits.GuildInvites,
-        GatewayIntentBits.GuildPresences,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildMessageReactions,
-        GatewayIntentBits.GuildMessageTyping,
-        GatewayIntentBits.DirectMessages,
-        GatewayIntentBits.DirectMessageReactions,
-        GatewayIntentBits.DirectMessageTyping,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildScheduledEvents,
-    ],
-    partials: [
-        Partials.User,
-        Partials.Channel,
-        Partials.GuildMember,
-        Partials.Message,
-        Partials.Reaction,
-        Partials.GuildScheduledEvent,
-        Partials.ThreadMember,
-    ],
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    // Add other intents as needed...
+  ],
 });
-// Add more intents if you wanna debug
-import DiscordLogger from "discordjs-logger";
 
-const logger = new DiscordLogger(client);
+const eventHandler = new DiscordEventHandler(client);
 
-logger.debug();
+// Register a few events with the default handler.
+// The default handler logs the event name and its arguments.
+eventHandler.registerEvents([
+  Events.MessageCreate,
+  Events.GuildCreate,
+  Events.ClientReady, // equivalent to 'ready'
+]);
+
+// Alternatively, register specific events with custom handlers:
+eventHandler.registerEvents([
+  [
+    Events.MessageCreate,
+    (message) => {
+      console.log("Custom handler for MessageCreate:", message.content);
+    },
+  ],
+]);
+
+// To log all available events from Discord.js:
+eventHandler.logAllEvents();
 
 client.login("YOUR_DISCORD_APP_TOKEN");
 ```
 
-# API
+### API Methods
 
-## https://discord.js.org/#/docs/main/stable/class/Client
+#### `on(event, handler)`
 
-## channelCreate(): Emitted whenever a channel is created.
+Registers a specific event with your custom handler.  
+Example:
 
-| PARAMETER |  TYPE   |         DESCRIPTION          |
-| :-------: | :-----: | :--------------------------: |
-|  channel  | Channel | The channel that was created |
-
-```javascript
-client.on("channelCreate", function (channel) {
-    console.log(`channelCreate: ${channel}`);
+```typescript
+eventHandler.on(Events.GuildCreate, (guild) => {
+  console.log("Guild created:", guild.name);
 });
 ```
 
-## channelDelete(): Emitted whenever a channel is deleted.
+#### `registerEvents(arg)`
 
-| PARAMETER |  TYPE   |         DESCRIPTION          |
-| :-------: | :-----: | :--------------------------: |
-|  channel  | Channel | The channel that was deleted |
+Overloaded to support two usages:
 
-```javascript
-client.on("channelDelete", function (channel) {
-    console.log(`channelDelete: ${channel}`);
-});
+1. **Default handler:**  
+   Pass an array of events (from the Discord.js `Events` enum) to register them with a default logger.
+   ```typescript
+   eventHandler.registerEvents([Events.MessageCreate, Events.GuildCreate]);
+   ```
+2. **Custom handlers:**  
+   Pass an array of tuples `[event, handler]` to register each event with a custom handler.
+   ```typescript
+   eventHandler.registerEvents([
+     [
+       Events.MessageCreate,
+       (message) => {
+         console.log("Custom MessageCreate:", message.content);
+       },
+     ],
+   ]);
+   ```
+
+#### `logAllEvents()`
+
+Registers all available events (retrieved from the Discord.js `Events` enum) with the default logging handler.
+
+```typescript
+eventHandler.logAllEvents();
 ```
 
-## channelPinsUpdate(): Emitted whenever the pins of a channel are updated. Due to the nature of the WebSocket event, not much information can be provided easily here - you need to manually check the pins yourself.
+---
 
-| PARAMETER |  TYPE   |                 DESCRIPTION                  |
-| :-------: | :-----: | :------------------------------------------: |
-|  channel  | Channel | The channel that the pins update occurred in |
-|   time    |  Date   |         The time of the pins update          |
+## Migration Guide: Upgrading from Version 4 to Version 5
 
-```javascript
-client.on("channelPinsUpdate", function (channel, time) {
-    console.log(`channelPinsUpdate: ${channel}:${time}`);
-});
-```
+### Breaking Changes
 
-## channelUpdate(): Emitted whenever a channel is updated - e.g. name change, topic change.
+1. **New API Structure:**
 
-| PARAMETER  |  TYPE   |          DESCRIPTION          |
-| :--------: | :-----: | :---------------------------: |
-| oldChannel | Channel | The channel before the update |
-| newChannel | Channel | The channel after the update  |
+   - **v4:** Provided individual methods for each event (e.g. `channelCreate()`, `guildCreate()`, etc.).
+   - **v5:** Uses a generic API: `on()`, `registerEvents()`, and `logAllEvents()`.
+   - **Impact:** If your code directly calls methods like `channelCreate()`, you will need to refactor them to use the new API.
 
-```javascript
-client.on("channelUpdate", function (oldChannel, newChannel) {
-    console.log(
-        `channelUpdate -> a channel is updated - e.g. name change, topic change`
-    );
-});
-```
+2. **Event Registration:**
+   - **v4:** Separate event listener methods.
+   - **v5:** Bulk registration is now available through `registerEvents()`, and a default logging handler is provided.
+   - **Impact:** You must update your event registration logic to match the new format.
 
-## clientUserGuildSettingsUpdate(): Emitted whenever the client user's settings update.
+### How to Migrate
 
-|        PARAMETER        |          TYPE           |            DESCRIPTION             |
-| :---------------------: | :---------------------: | :--------------------------------: |
-| clientUserGuildSettings | ClientUserGuildSettings | The new client user guild settings |
+1. **Update your dependency:**
 
-```javascript
-client.on("clientUserGuildSettingsUpdate", function (clientUserGuildSettings) {
-    console.log(
-        `clientUserGuildSettingsUpdate -> client user's settings update`
-    );
-});
-```
+   - Change your `package.json` to use discordjs-logger v5 (`^5.0.0`).
+   - With semver, users locked to `"^4.x.x"` will not automatically update to v5.
 
-## clientUserSettingsUpdate(): Emitted when the client user's settings update.
+2. **Refactor event registration:**
+   - **From v4 Example:**
+     ```typescript
+     // v4 approach:
+     const logger = new CDiscordEvent(client);
+     logger.channelCreate();
+     logger.guildCreate();
+     // etc.
+     ```
+   - **To v5 Approach:**
 
-|     PARAMETER      |        TYPE        |         DESCRIPTION          |
-| :----------------: | :----------------: | :--------------------------: |
-| clientUserSettings | ClientUserSettings | The new client user settings |
+     ```typescript
+     import { Events } from "discord.js";
+     import DiscordEventHandler from "discordjs-logger";
 
-```javascript
-client.on("clientUserSettingsUpdate", function (clientUserSettings) {
-    console.log(`clientUserSettingsUpdate -> client user's settings update`);
-});
-```
+     const eventHandler = new DiscordEventHandler(client);
 
-## debug(): Emitted for general debugging information.
+     // Register specific events with default logging:
+     eventHandler.registerEvents([Events.ChannelCreate, Events.GuildCreate]);
 
-| PARAMETER |  TYPE  |      DESCRIPTION      |
-| :-------: | :----: | :-------------------: |
-|   info    | string | The debug information |
+     // Or use custom handlers:
+     eventHandler.registerEvents([
+       [
+         Events.MessageCreate,
+         (message) => {
+           console.log("Custom handler for MessageCreate:", message.content);
+         },
+       ],
+     ]);
+     ```
+3. **Review your logging behavior:**
 
-```javascript
-client.on("debug", function (info) {
-    console.log(`debug -> ${info}`);
-});
-```
+   - v5’s default handlers log every event triggered. If this is too verbose for production, consider using custom handlers to control logging output.
 
-## disconnect(): Emitted when the client's WebSocket disconnects and will no longer attempt to reconnect.
+4. **Testing:**
+   - Thoroughly test your bot with the new version in a development environment to ensure all events are logged and handled as expected.
 
-| PARAMETER |    TYPE    |        DESCRIPTION        |
-| :-------: | :--------: | :-----------------------: |
-|   Event   | CloseEvent | The WebSocket close event |
+---
 
-```javascript
-client.on("disconnect", function (event) {
-    console.log(
-        `The WebSocket has closed and will no longer attempt to reconnect`
-    );
-});
-```
+## Compatibility Notes
 
-## emojiCreate(): Emitted whenever a custom emoji is created in a guild.
+- **Version 5:** Designed for use with Discord.js v14 or greater.
+- **Version 4:** Continue to use for Discord.js v13 or lower.  
+  (Please refer to the previous documentation for v4 if needed.)
 
-| PARAMETER | TYPE  |        DESCRIPTION         |
-| :-------: | :---: | :------------------------: |
-|   emoji   | Emoji | The emoji that was created |
+---
 
-```javascript
-client.on("emojiCreate", function (emoji) {
-    console.log(`a custom emoji is created in a guild`);
-});
-```
+## Additional Resources
 
-## emojiDelete(): Emitted whenever a custom guild emoji is deleted.
+- **Discord.js Documentation:** [https://discord.js.org/#/docs/main/stable/class/Client](https://discord.js.org/#/docs/main/stable/class/Client)
 
-| PARAMETER | TYPE  |        DESCRIPTION         |
-| :-------: | :---: | :------------------------: |
-|   emoji   | Emoji | The emoji that was deleted |
+---
 
-```javascript
-client.on("emojiDelete", function (emoji) {
-    console.log(`a custom guild emoji is deleted`);
-});
-```
-
-## emojiUpdate(): Emitted whenever a custom guild emoji is updated.
-
-| PARAMETER | TYPE  |  DESCRIPTION  |
-| :-------: | :---: | :-----------: |
-| oldEmoji  | Emoji | The old emoji |
-| newEmoji  | Emoji | The new emoji |
-
-```javascript
-client.on("emojiUpdate", function (oldEmoji, newEmoji) {
-    console.log(`a custom guild emoji is updated`);
-});
-```
-
-## error(): Emitted whenever the client's WebSocket encounters a connection error.
-
-| PARAMETER | TYPE  |      DESCRIPTION      |
-| :-------: | :---: | :-------------------: |
-|   error   | Error | The encountered error |
-
-```javascript
-client.on("error", function (error) {
-    console.error(
-        `client's WebSocket encountered a connection error: ${error}`
-    );
-});
-```
-
-## guildBanAdd(): Emitted whenever a member is banned from a guild.
-
-| PARAMETER | TYPE  |            DESCRIPTION             |
-| :-------: | :---: | :--------------------------------: |
-|   guild   | Guild | The guild that the ban occurred in |
-|   user    | User  |      The user that was banned      |
-
-```javascript
-client.on("guildBanAdd", function (guild, user) {
-    console.log(`a member is banned from a guild`);
-});
-```
-
-## guildBanRemove(): Emitted whenever a member is unbanned from a guild.
-
-| PARAMETER | TYPE  |             DESCRIPTION              |
-| :-------: | :---: | :----------------------------------: |
-|   guild   | Guild | The guild that the unban occurred in |
-|   user    | User  |      The user that was unbanned      |
-
-```javascript
-client.on("guildBanRemove", function (guild, user) {
-    console.log(`a member is unbanned from a guild`);
-});
-```
-
-## guildCreate(): Emitted whenever the client joins a guild.
-
-| PARAMETER | TYPE  |    DESCRIPTION    |
-| :-------: | :---: | :---------------: |
-|   guild   | Guild | The created guild |
-
-```javascript
-client.on("guildCreate", function (guild) {
-    console.log(`the client joins a guild`);
-});
-```
-
-## guildDelete(): Emitted whenever a guild is deleted/left.
-
-| PARAMETER | TYPE  |        DESCRIPTION         |
-| :-------: | :---: | :------------------------: |
-|   guild   | Guild | The guild that was deleted |
-
-```javascript
-client.on("guildDelete", function (guild) {
-    console.log(`the client deleted/left a guild`);
-});
-```
-
-## guildMemberAdd(): Emitted whenever a user joins a guild.
-
-| PARAMETER |    TYPE     |            DESCRIPTION             |
-| :-------: | :---------: | :--------------------------------: |
-|  member   | GuildMember | The member that has joined a guild |
-
-```javascript
-client.on("guildMemberAdd", function (member) {
-    console.log(`a user joins a guild: ${member.tag}`);
-});
-```
-
-## guildMemberAvailable(): Emitted whenever a member becomes available in a large guild.
-
-| PARAMETER |    TYPE     |           DESCRIPTION            |
-| :-------: | :---------: | :------------------------------: |
-|  member   | GuildMember | The member that became available |
-
-```javascript
-client.on("guildMemberAvailable", function (member) {
-    console.log(`member becomes available in a large guild: ${member.tag}`);
-});
-```
-
-## guildMemberRemove(): Emitted whenever a member leaves a guild, or is kicked.
-
-| PARAMETER |    TYPE     |                     DESCRIPTION                     |
-| :-------: | :---------: | :-------------------------------------------------: |
-|  member   | GuildMember | The member that has left/been kicked from the guild |
-
-```javascript
-client.on("guildMemberRemove", function (member) {
-    console.log(`a member leaves a guild, or is kicked: ${member.tag}`);
-});
-```
-
-## guildMembersChunk(): Emitted whenever a chunk of guild members is received (all members come from the same guild).
-
-| PARAMETER |        TYPE        |              DESCRIPTION              |
-| :-------: | :----------------: | :-----------------------------------: |
-|  members  | Array<GuildMember> |       The members in the chunk        |
-|   guild   |       Guild        | The guild related to the member chunk |
-
-```javascript
-client.on("guildMembersChunk", function (members, guild) {
-    console.error(`a chunk of guild members is received`);
-});
-```
-
-## guildMemberSpeaking(): Emitted once a guild member starts/stops speaking.
-
-| PARAMETER |    TYPE     |               DESCRIPTION                |
-| :-------: | :---------: | :--------------------------------------: |
-|  member   | GuildMember | The member that started/stopped speaking |
-| speaking  |   boolean   |  Whether or not the member is speaking   |
-
-```javascript
-client.on("guildMemberSpeaking", function (member, speaking) {
-    console.log(`a guild member starts/stops speaking: ${member.tag}`);
-});
-```
-
-## guildMemberUpdate(): Emitted whenever a guild member changes - i.e. new role, removed role, nickname.
-
-| PARAMETER |    TYPE     |         DESCRIPTION          |
-| :-------: | :---------: | :--------------------------: |
-| oldMember | GuildMember | The member before the update |
-| newMember | GuildMember | The member after the update  |
-
-```javascript
-client.on("guildMemberUpdate", function (oldMember, newMember) {
-    console.error(
-        `a guild member changes - i.e. new role, removed role, nickname.`
-    );
-});
-```
-
-## guildUnavailable(): Emitted whenever a guild becomes unavailable, likely due to a server outage.
-
-| PARAMETER | TYPE  |              DESCRIPTION              |
-| :-------: | :---: | :-----------------------------------: |
-|   guild   | Guild | The guild that has become unavailable |
-
-```javascript
-client.on("guildUnavailable", function (guild) {
-    console.error(
-        `a guild becomes unavailable, likely due to a server outage: ${guild}`
-    );
-});
-```
-
-## guildUpdate(): Emitted whenever a guild is updated - e.g. name change.
-
-| PARAMETER | TYPE  |         DESCRIPTION         |
-| :-------: | :---: | :-------------------------: |
-| oldGuild  | Guild | The guild before the update |
-| newGuild  | Guild | The guild after the update  |
-
-```javascript
-client.on("guildUpdate", function (oldGuild, newGuild) {
-    console.error(`a guild is updated`);
-});
-```
-
-## message(): Emitted whenever a message is created.
-
-| PARAMETER |  TYPE   |     DESCRIPTION     |
-| :-------: | :-----: | :-----------------: |
-|  message  | Message | The created message |
-
-```javascript
-client.on("message", function (message) {
-    console.log(`message is created -> ${message}`);
-});
-```
-
-## messageDelete(): Emitted whenever a message is deleted.
-
-| PARAMETER |  TYPE   |     DESCRIPTION     |
-| :-------: | :-----: | :-----------------: |
-|  message  | Message | The deleted message |
-
-```javascript
-client.on("messageDelete", function (message) {
-    console.log(`message is deleted -> ${message}`);
-});
-```
-
-## messageDeleteBulk(): Emitted whenever messages are deleted in bulk.
-
-| PARAMETER |              TYPE              |               DESCRIPTION                |
-| :-------: | :----------------------------: | :--------------------------------------: |
-| messages  | Collection<Snowflake, Message> | The deleted messages, mapped by their ID |
-
-```javascript
-client.on("messageDeleteBulk", function (messages) {
-    console.log(`messages are deleted -> ${messages}`);
-});
-```
-
-## messageReactionAdd(): Emitted whenever a reaction is added to a message.
-
-|    PARAMETER    |      TYPE       |                    DESCRIPTION                    |
-| :-------------: | :-------------: | :-----------------------------------------------: |
-| messageReaction | MessageReaction |                The reaction object                |
-|      user       |      User       | The user that applied the emoji or reaction emoji |
-
-```javascript
-client.on("messageReactionAdd", function (messageReaction, user) {
-    console.log(`a reaction is added to a message`);
-});
-```
-
-## messageReactionRemove(): Emitted whenever a reaction is removed from a message.
-
-|    PARAMETER    |      TYPE       |                    DESCRIPTION                    |
-| :-------------: | :-------------: | :-----------------------------------------------: |
-| messageReaction | MessageReaction |                The reaction object                |
-|      user       |      User       | The user that removed the emoji or reaction emoji |
-
-```javascript
-client.on("messageReactionRemove", function (messageReaction, user) {
-    console.log(`a reaction is removed from a message`);
-});
-```
-
-## messageReactionRemoveAll(): Emitted whenever all reactions are removed from a message.
-
-| PARAMETER |  TYPE   |                 DESCRIPTION                 |
-| :-------: | :-----: | :-----------------------------------------: |
-|  message  | Message | The message the reactions were removed from |
-
-```javascript
-client.on("messageReactionRemoveAll", function (message) {
-    console.error(`all reactions are removed from a message`);
-});
-```
-
-## messageUpdate(): Emitted whenever a message is updated - e.g. embed or content change.
-
-| PARAMETER  |  TYPE   |          DESCRIPTION          |
-| :--------: | :-----: | :---------------------------: |
-| oldMessage | Message | The message before the update |
-| newMessage | Message | The message after the update  |
-
-```javascript
-client.on("messageUpdate", function (oldMessage, newMessage) {
-    console.log(`a message is updated`);
-});
-```
-
-## presenceUpdate(): Emitted whenever a guild member's presence changes, or they change one of their details.
-
-| PARAMETER |    TYPE     |              DESCRIPTION              |
-| :-------: | :---------: | :-----------------------------------: |
-| oldMember | GuildMember | The member before the presence update |
-| newMember | GuildMember | The member after the presence update  |
-
-```javascript
-client.on("presenceUpdate", function (oldMember, newMember) {
-    console.log(`a guild member's presence changes`);
-});
-```
-
-## ready(): Emitted when the client becomes ready to start working.
-
-| PARAMETER | TYPE | DESCRIPTION |
-| :-------: | :--: | :---------: |
-
-```javascript
-client.on("ready", function () {
-    console.log(`the client becomes ready to start`);
-    console.log(`I am ready! Logged in as ${client.user.tag}!`);
-    console.log(
-        `Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`
-    );
-
-    client.user.setActivity("the upright organ");
-    client
-        .generateInvite(["SEND_MESSAGES", "MANAGE_GUILD", "MENTION_EVERYONE"])
-        .then((link) => {
-            console.log(`Generated bot invite link: ${link}`);
-            inviteLink = link;
-        });
-});
-```
-
-## reconnecting(): Emitted whenever the client tries to reconnect to the WebSocket.
-
-| PARAMETER | TYPE | DESCRIPTION |
-| :-------: | :--: | :---------: |
-
-```javascript
-client.on("reconnecting", function () {
-    console.log(`client tries to reconnect to the WebSocket`);
-});
-```
-
-## resume(): Emitted whenever a WebSocket resumes.
-
-| PARAMETER |  TYPE  |               DESCRIPTION               |
-| :-------: | :----: | :-------------------------------------: |
-| replayed  | number | The number of events that were replayed |
-
-```javascript
-client.on("resume", function (replayed) {
-    console.log(`whenever a WebSocket resumes, ${replayed} replays`);
-});
-```
-
-## roleCreate(): Emitted whenever a role is created.
-
-| PARAMETER | TYPE |        DESCRIPTION        |
-| :-------: | :--: | :-----------------------: |
-|   role    | Role | The role that was created |
-
-```javascript
-client.on("roleCreate", function (role) {
-    console.error(`a role is created`);
-});
-```
-
-## roleDelete(): Emitted whenever a guild role is deleted.
-
-| PARAMETER | TYPE |        DESCRIPTION        |
-| :-------: | :--: | :-----------------------: |
-|   role    | Role | The role that was deleted |
-
-```javascript
-client.on("roleDelete", function (role) {
-    console.error(`a guild role is deleted`);
-});
-```
-
-## roleUpdate(): Emitted whenever a guild role is updated.
-
-| PARAMETER | TYPE |        DESCRIPTION         |
-| :-------: | :--: | :------------------------: |
-|  oldRole  | Role | The role before the update |
-|  newRole  | Role | The role after the update  |
-
-```javascript
-client.on("roleUpdate", function (oldRole, newRole) {
-    console.error(`a guild role is updated`);
-});
-```
-
-## typingStart(): Emitted whenever a user starts typing in a channel.
-
-| PARAMETER |  TYPE   |              DESCRIPTION               |
-| :-------: | :-----: | :------------------------------------: |
-|  channel  | Channel | The channel the user started typing in |
-|   user    |  User   |      The user that started typing      |
-
-```javascript
-client.on("typingStart", function (channel, user) {
-    console.log(`${user.tag} has started typing`);
-});
-```
-
-## typingStop(): Emitted whenever a user stops typing in a channel.
-
-| PARAMETER |  TYPE   |              DESCRIPTION               |
-| :-------: | :-----: | :------------------------------------: |
-|  channel  | Channel | The channel the user stopped typing in |
-|   user    |  User   |      The user that stopped typing      |
-
-```javascript
-client.on("typingStop", function (channel, user) {
-    console.log(`${user.tag} has stopped typing`);
-});
-```
-
-## userNoteUpdate(): Emitted whenever a note is updated.
-
-| PARAMETER |  TYPE  |            DESCRIPTION             |
-| :-------: | :----: | :--------------------------------: |
-|   user    |  User  |    The user the note belongs to    |
-|  oldNote  | String | The note content before the update |
-|  newNote  | String | The note content after the update  |
-
-```javascript
-client.on("userNoteUpdate", function (user, oldNote, newNote) {
-    console.log(`a member's note is updated`);
-});
-```
-
-## userUpdate(): Emitted whenever a user's details (e.g. username) are changed.
-
-| PARAMETER | TYPE |        DESCRIPTION         |
-| :-------: | :--: | :------------------------: |
-|  oldUser  | User | The user before the update |
-|  newUser  | User | The user after the update  |
-
-```javascript
-client.on("userUpdate", function (oldUser, newUser) {
-    console.log(`user's details (e.g. username) are changed`);
-});
-```
-
-## voiceStateUpdate(): Emitted whenever a user changes voice state - e.g. joins/leaves a channel, mutes/unmutes.
-
-| PARAMETER |    TYPE     |               DESCRIPTION                |
-| :-------: | :---------: | :--------------------------------------: |
-| oldMember | GuildMember | The member before the voice state update |
-| newMember | GuildMember | The member after the voice state update  |
-
-```javascript
-client.on("voiceStateUpdate", function (oldMember, newMember) {
-    console.log(`a user changes voice state`);
-});
-```
-
-## warn(): Emitted for general warnings.
-
-| PARAMETER |  TYPE  | DESCRIPTION |
-| :-------: | :----: | :---------: |
-|   info    | string | The warning |
-
-```javascript
-client.on("warn", function (info) {
-    console.log(`warn: ${info}`);
-});
-```
+##### If you have any questions or run into issues during migration, please check our GitHub issues.

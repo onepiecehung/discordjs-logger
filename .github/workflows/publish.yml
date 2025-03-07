@@ -1,0 +1,33 @@
+name: Publish Package to npm
+
+on:
+  push:
+    tags:
+      - "v*.*.*" # Trigger on version tags, e.g., v5.0.0
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22" # Specify your preferred Node.js version
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+
+      - name: Install Dependencies
+        run: npm install
+
+      # Uncomment if your package requires a build step
+      - name: Build Package
+        run: npx tsc
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
