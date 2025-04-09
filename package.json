@@ -1,6 +1,6 @@
 {
   "name": "discordjs-logger",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Discord.js all events!",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "discord.js-logger"
   ],
   "author": "Nguyen Huu Hung <onepiece.hung@outlook.com> (@ds112,@onepiecehung)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/onepiecehung/discordjs-logger/issues"
   },
