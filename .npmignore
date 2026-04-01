@@ -1,0 +1,6 @@
+.claude/
+.mcp.json
+.github/
+tsconfig.json
+tslint.json
+index.ts
