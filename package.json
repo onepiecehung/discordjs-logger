@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/onepiecehung/discordjs-logger#readme",
   "dependencies": {
-    "discord.js": "^14.0.3"
+    "discord.js": "^14.26.0"
   },
   "devDependencies": {
     "typescript": "^5.8.2"

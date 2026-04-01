@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "command": "npx tsc --noEmit --pretty 2>&1 | head -20"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "command": "node -e \"const f=JSON.parse(process.env.CLAUDE_TOOL_INPUT || '{}').file_path||''; if(f.includes('node_modules')||f.endsWith('package-lock.json')){console.log('BLOCK: do not edit '+f);process.exit(2)}\""
+      }
+    ]
+  }
+}
